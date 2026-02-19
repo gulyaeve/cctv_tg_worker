@@ -4,7 +4,9 @@ import aio_pika
 from faststream import FastStream
 from bot.schemas import IncidentFullInfo
 from bot.settings import settings
+from bot.app import bot
 from faststream.rabbit import RabbitBroker, RabbitQueue, ExchangeType, RabbitExchange
+from aiogram.types import MediaUnion
 
 
 # Настройка логирования
@@ -19,6 +21,14 @@ app = FastStream(broker)
 @broker.subscriber(queue, exchange)
 async def incident_tg_handler(incident: IncidentFullInfo):
     logging.info(incident)
+    if incident.cameras_screenshots:
+        media = MediaUnion()
+        await bot.send_media_group(
+            settings.BOT_ADMINS[1],
+
+        )
+    else:
+        await bot.send_message(settings.BOT_ADMINS[1], str(incident))
 
 
 async def main():
