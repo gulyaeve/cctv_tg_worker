@@ -25,18 +25,23 @@ async def incident_tg_handler(incident: IncidentFullInfo):
     logging.info(incident)
     screenshot_dir = "/screenshots"
     if incident.cameras_screenshots:
-        photos = []
+        # photos = []
         for screenshot in incident.cameras_screenshots:
-            photos.append(
-                InputMediaPhoto(
-                    media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
-                    caption=str(incident)
-                )
-                )
-        await bot.send_media_group(
-            settings.BOT_ADMINS[1],
-            photos,
-        )
+            await bot.send_photo(
+                chat_id=settings.BOT_ADMINS[1],
+                photo=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+                caption=str(incident)
+            )
+            # photos.append(
+            #     InputMediaPhoto(
+            #         media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+            #         caption=str(incident)
+            #     )
+            #     )
+        # await bot.send_media_group(
+        #     chat_id=settings.BOT_ADMINS[1],
+        #     media=photos,
+        # )
     else:
         await bot.send_message(settings.BOT_ADMINS[1], str(incident))
 
