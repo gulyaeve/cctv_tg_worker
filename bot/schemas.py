@@ -30,10 +30,10 @@ class IncidentFullInfo(BaseModel):
         if self.comment:
             message += f"<i>{self.comment}</i>\n"
         message += "\n"
-        message += f"Кабинет: <i>#{self.current_classroom}</i>\n"
-        message += f"Занятие: <i>#{self.current_schedule}</i>\n"
-        message += f"Преподаватель: <i>#{self.current_teacher}</i>\n"
-        message += f"Группа: <i>#{self.current_group}</i>\n"
+        message += f"Кабинет: <i>{self.current_classroom}</i>\n"
+        message += f"Занятие: <i>{self.current_schedule}</i>\n"
+        message += f"Преподаватель: <i>{self.current_teacher}</i>\n"
+        message += f"Группа: <i>{self.current_group}</i>\n"
         
         return message
     
