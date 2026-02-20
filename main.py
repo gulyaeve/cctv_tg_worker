@@ -28,12 +28,10 @@ async def incident_tg_handler(incident: IncidentFullInfo):
         photos = []
         for screenshot in incident.cameras_screenshots:
             photos.append(
-                (
-                    InputMediaPhoto(
-                        FSInputFile(f"{screenshot_dir}/{screenshot}"),
-                        caption=str(incident)
-                    )
-                    )
+                InputMediaPhoto(
+                    media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+                    caption=str(incident)
+                )
                 )
         await bot.send_media_group(
             settings.BOT_ADMINS[1],
