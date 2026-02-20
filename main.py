@@ -6,7 +6,7 @@ from bot.schemas import IncidentFullInfo
 from bot.settings import settings
 from bot.app import bot
 from faststream.rabbit import RabbitBroker, RabbitQueue, ExchangeType, RabbitExchange
-from aiogram.types import FSInputFile, InputMediaPhoto
+from aiogram.types import FSInputFile
 
 
 # Настройка логирования
