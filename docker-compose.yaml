@@ -1,0 +1,27 @@
+services:
+  cctv_tg_worker:
+    image: cctv_tg_worker
+    build:
+      context: .
+    volumes:
+      - /home/user/screenshots:/screenshots
+    container_name: cctv_tg_worker
+    env_file:
+      - .env
+    # depends_on:
+    #   - db
+    #   - rabbitmq
+      # - redis
+    command: ["python", "main.py"]
+    # ports:
+    #   - 8000:8000
+    networks:
+      default:
+        aliases:
+          - "cctv_tg_worker"
+       
+
+networks:
+  default:
+    name: cctv_network
+    external: true
