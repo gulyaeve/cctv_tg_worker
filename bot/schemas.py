@@ -19,7 +19,7 @@ class IncidentFullInfo(BaseModel):
     current_visor: str
 
     def __str__(self):
-        message = "#cctv\n"
+        message = f"#cctv <i>{self.time_created.strftime('%d.%m.%Y %T')}</i>\n"
         match self.status:
             case 0:
                 message += "<b>НАРУШЕНИЙ НЕТ</b>\n"
@@ -28,7 +28,10 @@ class IncidentFullInfo(BaseModel):
             case 3:
                 message += "<b>КОНТРОЛЬ</b>\n"
         message += "\n"
-        message += f"<i>{self.time_created.strftime('%d.%m.%Y %T')}</i>"
+        if self.comment:
+            message += f"<i>{self.comment}</i>\n"
+        message += f"Занятие: {self.current_schedule}"
+
         
         return message
     
