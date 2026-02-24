@@ -28,7 +28,8 @@ async def incident_tg_handler(incident: IncidentFullInfo):
         # photos = []
         for screenshot in incident.cameras_screenshots:
             await bot.send_photo(
-                chat_id=settings.BOT_ADMINS[1],
+                chat_id=settings.TELEGRAM_CHAT_ID,
+                message_thread_id=settings.TELEGRAM_THREAD_ID,
                 photo=FSInputFile(f"{screenshot_dir}/{screenshot}"),
                 caption=str(incident)
             )
@@ -43,7 +44,11 @@ async def incident_tg_handler(incident: IncidentFullInfo):
         #     media=photos,
         # )
     else:
-        await bot.send_message(settings.BOT_ADMINS[1], str(incident))
+        await bot.send_message(
+            chat_id=settings.TELEGRAM_CHAT_ID,
+            message_thread_id=settings.TELEGRAM_THREAD_ID,
+            text=str(incident)
+            )
 
 
 async def main():
