@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     TELEGRAM_API_SERVER: Optional[str] = None
     TELEGRAM_API_PORT: Optional[int] = None
     BOT_ADMINS: list
+    TELEGRAM_CHAT_ID: str
+    TELEGRAM_THREAD_ID: str
 
     @property
     def api_server_url(self):
