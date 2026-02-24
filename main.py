@@ -6,7 +6,7 @@ from bot.schemas import IncidentFullInfo
 from bot.settings import settings
 from bot.app import bot
 from faststream.rabbit import RabbitBroker, RabbitQueue, ExchangeType, RabbitExchange
-from aiogram.types import FSInputFile
+from aiogram.types import FSInputFile, InputMediaPhoto
 
 
 # Настройка логирования
@@ -25,24 +25,33 @@ async def incident_tg_handler(incident: IncidentFullInfo):
     logging.info(incident)
     screenshot_dir = "/screenshots"
     if incident.cameras_screenshots:
-        # photos = []
-        for screenshot in incident.cameras_screenshots:
-            await bot.send_photo(
-                chat_id=settings.TELEGRAM_CHAT_ID,
-                message_thread_id=settings.TELEGRAM_THREAD_ID,
-                photo=FSInputFile(f"{screenshot_dir}/{screenshot}"),
-                caption=str(incident)
-            )
-            # photos.append(
-            #     InputMediaPhoto(
-            #         media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
-            #         caption=str(incident)
-            #     )
-            #     )
-        # await bot.send_media_group(
-        #     chat_id=settings.BOT_ADMINS[1],
-        #     media=photos,
-        # )
+        photos = []
+        for i, screenshot in enumerate(incident.cameras_screenshots):
+            if i == 0:
+                photos.append(
+                    InputMediaPhoto(
+                        media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+                        caption=str(incident)
+                    )
+                    )
+            else:
+                photos.append(
+                    InputMediaPhoto(
+                        media=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+                    )
+                    )
+            # FOR ONE PHOTO
+            # await bot.send_photo(
+            #     chat_id=settings.TELEGRAM_CHAT_ID,
+            #     message_thread_id=settings.TELEGRAM_THREAD_ID,
+            #     photo=FSInputFile(f"{screenshot_dir}/{screenshot}"),
+            #     caption=str(incident)
+            # )
+        await bot.send_media_group(
+            chat_id=settings.TELEGRAM_CHAT_ID,
+            message_thread_id=settings.TELEGRAM_THREAD_ID,
+            media=photos,
+        )
     else:
         await bot.send_message(
             chat_id=settings.TELEGRAM_CHAT_ID,
