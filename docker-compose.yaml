@@ -1,11 +1,11 @@
 services:
   cctv_tg_worker:
-    image: cctv_max_worker
+    image: cctv_tg_worker
     build:
       context: .
     volumes:
       - /home/user/screenshots:/screenshots
-    container_name: cctv_max_worker
+    container_name: cctv_tg_worker
     env_file:
       - .env
     # depends_on:
@@ -18,7 +18,7 @@ services:
     networks:
       default:
         aliases:
-          - "cctv_max_worker"
+          - "cctv_tg_worker"
        
 
 networks:
