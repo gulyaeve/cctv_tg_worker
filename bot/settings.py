@@ -71,8 +71,8 @@ class Settings(BaseSettings):
             f"amqp://{self.RABBITMQ_DEFAULT_USER}:{quote(self.RABBITMQ_DEFAULT_PASS)}@" f"{self.RABBITMQ_HOST}:{self.RABBITMQ_PORT}"
         )
     
-    QUEUE_NAME: str
-    EXCHANGE_NAME: str
+    QUEUE_NAME: str = "cctv_tg"
+    EXCHANGE_NAME: str = "cctv_msg_send"
 
 
     # Email
@@ -83,7 +83,7 @@ class Settings(BaseSettings):
     #     EMAIL_LOGIN: str
     #     EMAIL_PASSWORD: str
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     # class Config:
     #     env_file = ".env" if os.path.exists(".env") else None
 
