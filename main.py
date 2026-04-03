@@ -61,10 +61,10 @@ async def incident_tg_handler(incident: IncidentFullInfo):
 
 
 async def main():
-    async with broker:
-        tg_queue: aio_pika.RobustQueue = await broker.declare_queue(queue)
-        tg_exchange: aio_pika.RobustExchange = await broker.declare_exchange(exchange)
-        await tg_queue.bind(exchange=tg_exchange)
+    # async with broker:
+    #     tg_queue: aio_pika.RobustQueue = await broker.declare_queue(queue)
+    #     tg_exchange: aio_pika.RobustExchange = await broker.declare_exchange(exchange)
+    #     await tg_queue.bind(exchange=tg_exchange)
     await app.run()
 
 
