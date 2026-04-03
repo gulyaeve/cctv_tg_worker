@@ -17,6 +17,7 @@ class IncidentFullInfo(BaseModel):
     current_schedule: str
     current_classroom: str
     current_visor: str
+    current_building: str
 
     def __str__(self):
         message = f"#cctv <i>{self.time_created.strftime('%d.%m.%Y %T')}</i>\n"
@@ -30,6 +31,7 @@ class IncidentFullInfo(BaseModel):
         if self.comment:
             message += f"<i>{self.comment}</i>\n"
         message += "\n"
+        message += f"Корпус: <i>{self.current_building}</i>\n"
         message += f"Кабинет: <i>{self.current_classroom}</i>\n"
         message += f"Занятие: <i>{self.current_schedule}</i>\n"
         message += f"Преподаватель: <i>{self.current_teacher}</i>\n"
